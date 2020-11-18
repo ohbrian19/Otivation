@@ -9,12 +9,13 @@ import Screen from "../component/Screen";
 import colors from "../colors";
 import AppFormPicker from "../component/form/AppFormPicker";
 import CategoryPickerItem from "../component/form/CategoryPickerItem";
+import apiClient from "../api/client";
 
 const validationSchema = Yup.object().shape({
   date: Yup.string().label("Date"),
   category: Yup.string().required().label("Category"),
-  exerciseName: Yup.string().label("ExerciseName"),
-  numberOfSets: Yup.number().min(0).max(100).label("NumberOfSets"),
+  exercise_name: Yup.string().label("ExerciseName"),
+  number_of_sets: Yup.number().min(0).max(100).label("NumberOfSets"),
   weight: Yup.number().min(0).max(1000).label("Weight"),
   unit: Yup.string().label("Unit"),
   note: Yup.string().label("Note"),
@@ -72,8 +73,17 @@ const unitList = [
 
 function ExerciseAddScreen({ route }) {
   const handleSubmit = (item) => {
-    console.log(item);
-    // post this to backend database
+    const data = {
+      date: item.date,
+      category: item.category.label,
+      exercise_name: item.exercise_name,
+      number_of_sets: parseInt(item.number_of_sets),
+      weight: parseInt(item.weight),
+      unit: item.unit.label,
+      note: item.note,
+    };
+    console.log(data);
+    apiClient.post("/exercises", data).then();
   };
 
   return (
@@ -82,8 +92,8 @@ function ExerciseAddScreen({ route }) {
         initialValues={{
           date: route.params,
           category: null,
-          exerciseName: "",
-          numberOfSets: "",
+          exercise_name: "",
+          number_of_sets: "",
           weight: "",
           unit: "",
           note: "",
@@ -102,14 +112,14 @@ function ExerciseAddScreen({ route }) {
         {/* Should CHANGE this later */}
         <AppFormField
           maxLength={50}
-          name="exerciseName"
+          name="exercise_name"
           placeholder="Exercise Name"
         />
         <AppFormField
           width={200}
           keyboardType="numeric"
           maxLength={8}
-          name="numberOfSets"
+          name="number_of_sets"
           placeholder="Number of Sets"
         />
         <AppFormField

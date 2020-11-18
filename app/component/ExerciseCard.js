@@ -7,8 +7,8 @@ import AppText from "./form/AppText";
 function ExerciseCard({
   date,
   category,
-  exerciseName,
-  numberOfSets,
+  exercise_name,
+  number_of_sets,
   weight,
   unit,
   note,
@@ -19,9 +19,9 @@ function ExerciseCard({
       <View style={styles.card}>
         <View style={styles.detailsContainer}>
           <AppText style={styles.category}>{category}</AppText>
-          <AppText>{exerciseName}</AppText>
+          <AppText>{exercise_name}</AppText>
           <AppText>
-            {numberOfSets} sets of {weight} {unit}
+            {number_of_sets} sets of {weight} {unit}
           </AppText>
           <AppText>{note}</AppText>
         </View>

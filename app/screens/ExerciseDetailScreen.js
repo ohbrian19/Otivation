@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -7,35 +7,20 @@ import Screen from "../component/Screen";
 import routes from "../navigation/routes";
 import ExerciseCard from "../component/ExerciseCard";
 import AppText from "../component/form/AppText";
-
-const fake = [
-  {
-    date: "2020-11-11",
-    category: "Chest",
-    exerciseName: "Bench-Press",
-    numberOfSets: 3,
-    weight: 100,
-    unit: "lb",
-    note: "first day at gym",
-  },
-  {
-    date: "2020-11-11",
-    category: "Shoulder",
-    exerciseName: "Shoulder-Press",
-    numberOfSets: 4,
-    weight: 20,
-    unit: "kg",
-    note: "fake dataaa testing",
-  },
-];
+import apiClient from "../api/client";
 
 function ExerciseDetailScreen({ route, navigation }) {
-  // fetch data from backend
-  const getData = () => {};
+  const [exercises, setExercises] = useState([]);
 
-  const handlePress = () => {
-    navigation.navigate(routes.EXERCISE_ADD, route.params);
+  const getData = () => {
+    apiClient
+      .get(`/exercises/${route.params}`)
+      .then((response) => setExercises(response.data));
   };
+
+  useEffect(() => {
+    getData();
+  }, []);
 
   return (
     <Screen style={styles.container}>
@@ -44,24 +29,26 @@ function ExerciseDetailScreen({ route, navigation }) {
         <MaterialCommunityIcons
           name="dumbbell"
           size={40}
-          onPress={handlePress}
+          onPress={() => navigation.navigate(routes.EXERCISE_ADD, route.params)}
           style={styles.button}
         />
       </View>
-      <View style={styles.cardContainer}>
-        {fake.map((item, i) => (
-          <ExerciseCard
-            key={i}
-            date={item.date}
-            category={item.category}
-            exerciseName={item.exerciseName}
-            numberOfSets={item.numberOfSets}
-            weight={item.weight}
-            unit={item.unit}
-            note={item.note}
-          />
-        ))}
-      </View>
+      {exercises.length !== 0 ? (
+        <View style={styles.cardContainer}>
+          {exercises.map((item, i) => (
+            <ExerciseCard
+              key={i}
+              date={item.date}
+              category={item.category}
+              exercise_name={item.exercise_name}
+              number_of_sets={item.number_of_sets}
+              weight={item.weight}
+              unit={item.unit}
+              note={item.note}
+            />
+          ))}
+        </View>
+      ) : null}
     </Screen>
   );
 }
