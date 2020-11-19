@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
 
 import colors from "../colors";
 import Screen from "../component/Screen";
@@ -12,15 +13,22 @@ import apiClient from "../api/client";
 function ExerciseDetailScreen({ route, navigation }) {
   const [exercises, setExercises] = useState([]);
 
-  const getData = () => {
+  const getData = async () => {
+    console.log("data receieved from server");
     apiClient
       .get(`/exercises/${route.params}`)
       .then((response) => setExercises(response.data));
   };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      getData();
+    }, [])
+  );
+
+  const handleDelete = (id) => {
+    apiClient.delete(`/exercises/${id}`).then(getData());
+  };
 
   return (
     <Screen style={styles.container}>
@@ -33,11 +41,12 @@ function ExerciseDetailScreen({ route, navigation }) {
           style={styles.button}
         />
       </View>
-      {exercises.length !== 0 ? (
-        <View style={styles.cardContainer}>
-          {exercises.map((item, i) => (
+      <View style={styles.cardContainer}>
+        {exercises &&
+          exercises.map((item) => (
             <ExerciseCard
-              key={i}
+              key={item.id}
+              id={item.id}
               date={item.date}
               category={item.category}
               exercise_name={item.exercise_name}
@@ -45,10 +54,11 @@ function ExerciseDetailScreen({ route, navigation }) {
               weight={item.weight}
               unit={item.unit}
               note={item.note}
+              handleDelete={handleDelete}
+              getData={getData}
             />
           ))}
-        </View>
-      ) : null}
+      </View>
     </Screen>
   );
 }

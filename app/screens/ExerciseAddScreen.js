@@ -4,12 +4,13 @@ import * as Yup from "yup";
 
 import AppForm from "../component/form/AppForm";
 import AppFormField from "../component/form/AppFormField";
+import AppFormPicker from "../component/form/AppFormPicker";
 import SubmitButton from "../component/form/SubmitButton";
 import Screen from "../component/Screen";
 import colors from "../colors";
-import AppFormPicker from "../component/form/AppFormPicker";
 import CategoryPickerItem from "../component/form/CategoryPickerItem";
 import apiClient from "../api/client";
+import routes from "../navigation/routes";
 
 const validationSchema = Yup.object().shape({
   date: Yup.string().label("Date"),
@@ -71,7 +72,7 @@ const unitList = [
   { label: "lb", value: 2 },
 ];
 
-function ExerciseAddScreen({ route }) {
+function ExerciseAddScreen({ route, navigation }) {
   const handleSubmit = (item) => {
     const data = {
       date: item.date,
@@ -82,8 +83,9 @@ function ExerciseAddScreen({ route }) {
       unit: item.unit.label,
       note: item.note,
     };
-    console.log(data);
-    apiClient.post("/exercises", data).then();
+    apiClient
+      .post("/exercises", data)
+      .then(() => navigation.navigate(routes.EXERCISE_DETAIL));
   };
 
   return (
