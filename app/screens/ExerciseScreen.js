@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+import React, { useCallback, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { Calendar, CalendarList, Agenda } from "react-native-calendars";
 import apiClient from "../api/client";
@@ -9,20 +10,26 @@ import Screen from "../component/Screen";
 import routes from "../navigation/routes";
 
 function ExerciseScreen({ navigation }) {
-  const [exrcises, setExercises] = useState([]);
   const [marked, setMarked] = useState({});
 
   const getAllExercises = () => {
-    apiClient.get("/exercises").then((response) => setExercises(response.data));
+    apiClient.get("/exercises").then((response) => findAllDates(response.data));
+  };
+
+  const findAllDates = (arr) => {
+    let dates = {};
+    for (let ele of arr) {
+      if (!dates[ele.date])
+        dates[ele.date] = { selected: true, selectedColor: colors.secondary };
+    }
+    setMarked(dates);
   };
 
   const handlePress = ({ dateString }) => {
     navigation.navigate(routes.EXERCISE_DETAIL, dateString);
   };
 
-  useEffect(() => {
-    getAllExercises();
-  }, []);
+  useFocusEffect(useCallback(() => getAllExercises(), []));
 
   return (
     <Screen style={styles.container}>

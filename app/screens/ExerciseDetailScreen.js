@@ -13,8 +13,7 @@ import apiClient from "../api/client";
 function ExerciseDetailScreen({ route, navigation }) {
   const [exercises, setExercises] = useState([]);
 
-  const getData = async () => {
-    console.log("data receieved from server");
+  const getData = () => {
     apiClient
       .get(`/exercises/${route.params}`)
       .then((response) => setExercises(response.data));
