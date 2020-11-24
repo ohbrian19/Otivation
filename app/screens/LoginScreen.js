@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, StyleSheet } from "react-native";
 import * as Yup from "yup";
 
@@ -8,6 +8,7 @@ import FormField from "../component/form/AppFormField";
 import ErrorMessage from "../component/form/ErrorMessage";
 import SubmitButton from "../component/form/SubmitButton";
 import colors from "../colors";
+import { authService } from "../fbase";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
@@ -15,18 +16,26 @@ const validationSchema = Yup.object().shape({
 });
 
 function LoginScreen(props) {
+  const [error, setError] = useState();
+
+  const onSubmit = async ({ email, password }) => {
+    try {
+      await authService.signInWithEmailAndPassword(email, password);
+      setError();
+    } catch (error) {
+      setError(error.message);
+    }
+  };
+
   return (
     <Screen style={styles.container}>
       <Image style={styles.logo} source={require("../assets/logo.png")} />
       <Form
         initialValues={{ email: "", password: "" }}
-        onSubmit={() => console.log("submitted")}
+        onSubmit={onSubmit}
         validationSchema={validationSchema}
       >
-        <ErrorMessage
-          error="Invalid email and/or password"
-          // visible={loginFailed}
-        />
+        {error && <ErrorMessage error={error} visible={true} />}
         <FormField
           autoCapitalize="none"
           autoCorrect={false}

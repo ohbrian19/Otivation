@@ -3,6 +3,7 @@ import { View, StyleSheet, Image } from "react-native";
 import colors from "../colors";
 
 import AppButton from "../component/AppButton";
+import SocialLogIn from "../component/SocialLogIn";
 import routes from "../navigation/routes";
 
 function WelcomeScreen({ navigation }) {
@@ -14,14 +15,16 @@ function WelcomeScreen({ navigation }) {
       <View style={styles.buttonsContainer}>
         <AppButton
           title="Login"
-          color={colors.secondary}
           onPress={() => navigation.navigate(routes.LOGIN)}
         />
         <AppButton
           title="Register"
-          color={colors.secondary}
           onPress={() => navigation.navigate(routes.REGISTER)}
         />
+      </View>
+      <View style={styles.socialLogIn}>
+        <SocialLogIn name="google" />
+        <SocialLogIn name="github" />
       </View>
     </View>
   );
@@ -33,7 +36,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-end",
     backgroundColor: colors.primary,
-    paddingBottom: 250,
+    paddingBottom: 220,
   },
   buttonsContainer: {
     padding: 20,
@@ -47,6 +50,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 200,
     alignItems: "center",
+  },
+  socialLogIn: {
+    flexDirection: "row",
+    paddingHorizontal: 10,
   },
 });
 

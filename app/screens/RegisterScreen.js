@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, Image } from "react-native";
 import * as Yup from "yup";
 
@@ -8,6 +8,7 @@ import FormField from "../component/form/AppFormField";
 import SubmitButton from "../component/form/SubmitButton";
 import ErrorMessage from "../component/form/ErrorMessage";
 import colors from "../colors";
+import { authService } from "../fbase";
 
 // import ActivityIndicator from "../components/ActivityIndicator";
 
@@ -18,6 +19,16 @@ const validationSchema = Yup.object().shape({
 });
 
 function RegisterScreen() {
+  const [error, setError] = useState();
+
+  const onSubmit = async ({ email, password }) => {
+    try {
+      await authService.createUserWithEmailAndPassword(email, password);
+      setError();
+    } catch (error) {
+      setError(error.message);
+    }
+  };
   return (
     <>
       {/* <ActivityIndicator visible={registerApi.loading || loginApi.loading} /> */}
@@ -25,10 +36,10 @@ function RegisterScreen() {
         <Image style={styles.logo} source={require("../assets/logo.png")} />
         <Form
           initialValues={{ name: "", email: "", password: "" }}
-          onSubmit={() => console.log("submit")}
+          onSubmit={onSubmit}
           validationSchema={validationSchema}
         >
-          {/* <ErrorMessage error={error} visible={error} /> */}
+          {error && <ErrorMessage error={error} visible={true} />}
           <FormField
             autoCorrect={false}
             icon="account"
