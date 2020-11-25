@@ -8,7 +8,7 @@ import ExerciseNavigator from "./ExerciseNavigator";
 
 const Tab = createBottomTabNavigator();
 
-function AppNavigator() {
+function AppNavigator({}) {
   return (
     <Tab.Navigator>
       <Tab.Screen

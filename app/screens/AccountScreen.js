@@ -1,18 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../colors";
 import AccountItem from "../component/AccountItem";
 import Screen from "../component/Screen";
+import { authService } from "../fbase";
+import UserContext from "../hooks/context";
 
 function AccountScreen() {
+  const { user } = useContext(UserContext);
   const manageAccount = () => {
     console.log("handle profile");
   };
 
   const logout = () => {
-    console.log("logged out");
+    authService.signOut();
   };
 
   return (
@@ -20,7 +23,7 @@ function AccountScreen() {
       <Image style={styles.logo} source={require("../assets/logo.png")} />
       <AccountItem
         title="Brian Oh"
-        subTitle="ohbrian12@gmail.com"
+        subTitle={user}
         onPress={manageAccount}
         icon={
           <MaterialCommunityIcons name="account-circle-outline" size={70} />

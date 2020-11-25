@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { StyleSheet, View } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
@@ -9,20 +9,22 @@ import routes from "../navigation/routes";
 import ExerciseCard from "../component/ExerciseCard";
 import AppText from "../component/form/AppText";
 import apiClient from "../api/client";
+import UserContext from "../hooks/context";
 
 function ExerciseDetailScreen({ route, navigation }) {
   const [exercises, setExercises] = useState([]);
+  const { user } = useContext(UserContext);
 
   const getData = () => {
     apiClient
-      .get(`/exercises/${route.params}`)
+      .get(`/exercises/${route.params}/${user}`)
       .then((response) => setExercises(response.data));
   };
 
   useFocusEffect(
     useCallback(() => {
-      getData();
-    }, [])
+      if (user) getData();
+    }, [user])
   );
 
   const handleDelete = (id) => {

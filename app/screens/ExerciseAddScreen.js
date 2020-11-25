@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 
@@ -11,6 +11,7 @@ import colors from "../colors";
 import CategoryPickerItem from "../component/form/CategoryPickerItem";
 import apiClient from "../api/client";
 import routes from "../navigation/routes";
+import UserContext from "../hooks/context";
 
 const validationSchema = Yup.object().shape({
   date: Yup.string().label("Date"),
@@ -73,8 +74,11 @@ const unitList = [
 ];
 
 function ExerciseAddScreen({ route, navigation }) {
+  const { user } = useContext(UserContext);
+
   const handleSubmit = (item) => {
     const data = {
+      user_email: user,
       date: item.date,
       category: item.category.label,
       exercise_name: item.exercise_name,

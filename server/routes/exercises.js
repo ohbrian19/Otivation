@@ -9,9 +9,9 @@ const {
   deleteExercise,
 } = require("../db/queries");
 
-router.get("/", getAllExercises);
+router.get("/:user", getAllExercises);
 
-router.get("/:date", getExercisesByDate);
+router.get("/:date/:user", getExercisesByDate);
 
 router.post("/", addExercise);
 

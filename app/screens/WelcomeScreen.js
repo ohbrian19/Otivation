@@ -21,10 +21,7 @@ function WelcomeScreen({ navigation }) {
           title="Register"
           onPress={() => navigation.navigate(routes.REGISTER)}
         />
-      </View>
-      <View style={styles.socialLogIn}>
-        <SocialLogIn name="google" />
-        <SocialLogIn name="github" />
+        <SocialLogIn />
       </View>
     </View>
   );
@@ -50,10 +47,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: 200,
     alignItems: "center",
-  },
-  socialLogIn: {
-    flexDirection: "row",
-    paddingHorizontal: 10,
   },
 });
 
