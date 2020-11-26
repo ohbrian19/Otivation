@@ -12,6 +12,7 @@ import CategoryPickerItem from "../component/form/CategoryPickerItem";
 import apiClient from "../api/client";
 import routes from "../navigation/routes";
 import UserContext from "../hooks/context";
+import LoadingScreen from "./LoadingScreen";
 
 const validationSchema = Yup.object().shape({
   date: Yup.string().label("Date"),
@@ -94,6 +95,7 @@ function ExerciseAddScreen({ route, navigation }) {
 
   return (
     <Screen style={styles.container}>
+      <LoadingScreen onFinish progress visible />
       <AppForm
         initialValues={{
           date: route.params,

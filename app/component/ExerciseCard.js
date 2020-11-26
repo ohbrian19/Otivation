@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { View, StyleSheet } from "react-native";
-import apiClient from "../api/client";
 
 import colors from "../colors";
 import AppText from "./form/AppText";

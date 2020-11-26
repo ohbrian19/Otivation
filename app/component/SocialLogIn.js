@@ -67,8 +67,12 @@ function SocialLogIn() {
 
   return (
     <TouchableOpacity style={styles.button} onPress={signInWithGoogleAsync}>
+      <MaterialCommunityIcons
+        name="google"
+        size={20}
+        color={colors.lightGrey}
+      />
       <Text style={styles.text}>{" sign in with Google"}</Text>
-      <MaterialCommunityIcons name="google" size={18} />
     </TouchableOpacity>
   );
 }
@@ -81,11 +85,12 @@ const styles = StyleSheet.create({
     padding: 20,
     borderRadius: 10,
     flexDirection: "row",
-    marginTop: 10,
+    marginTop: 8,
   },
   text: {
     fontSize: 18,
-    fontFamily: "Avenir-Light",
+    fontWeight: "bold",
+    fontFamily: "Kohinoor Bangla",
   },
 });
 

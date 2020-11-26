@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     fontWeight: "bold",
-    fontFamily: "Avenir-Light",
+    fontFamily: "Kohinoor Bangla",
   },
 });
 

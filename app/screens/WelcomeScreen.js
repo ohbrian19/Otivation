@@ -11,8 +11,6 @@ function WelcomeScreen({ navigation }) {
     <View style={styles.container}>
       <View style={styles.logoContainer}>
         <Image source={require("../assets/logo.png")} style={styles.logo} />
-      </View>
-      <View style={styles.buttonsContainer}>
         <AppButton
           title="Login"
           onPress={() => navigation.navigate(routes.LOGIN)}
@@ -31,21 +29,16 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "flex-end",
+    justifyContent: "center",
     backgroundColor: colors.primary,
-    paddingBottom: 220,
-  },
-  buttonsContainer: {
-    padding: 20,
-    width: "60%",
   },
   logo: {
-    width: 180,
-    height: 180,
+    width: 200,
+    height: 200,
+    marginBottom: 20,
   },
   logoContainer: {
     position: "absolute",
-    top: 200,
     alignItems: "center",
   },
 });

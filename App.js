@@ -6,6 +6,7 @@ import navigationTheme from "./app/navigation/navigationTheme";
 import AppNavigator from "./app/navigation/AppNavigator";
 import AuthNavigator from "./app/navigation/AuthNavigator";
 import UserContext from "./app/hooks/context";
+import Splash from "./app/component/animation/Splash";
 
 export default function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -23,10 +24,12 @@ export default function App() {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      <NavigationContainer theme={navigationTheme}>
-        {isLoggedIn ? <AppNavigator /> : <AuthNavigator />}
-      </NavigationContainer>
-    </UserContext.Provider>
+    <>
+      <UserContext.Provider value={{ user, setUser }}>
+        <NavigationContainer theme={navigationTheme}>
+          {isLoggedIn ? <AppNavigator /> : <AuthNavigator />}
+        </NavigationContainer>
+      </UserContext.Provider>
+    </>
   );
 }
