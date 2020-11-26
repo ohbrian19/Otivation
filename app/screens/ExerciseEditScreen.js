@@ -1,5 +1,5 @@
 import React from "react";
-import { View, StyleSheet, Modal } from "react-native";
+import { StyleSheet, Modal } from "react-native";
 import * as Yup from "yup";
 import apiClient from "../api/client";
 import colors from "../colors";
@@ -112,9 +112,9 @@ function ExerciseEditScreen({
             date,
             category: findCategory(category),
             exercise_name,
-            number_of_sets: String(number_of_sets),
-            weight: String(weight),
-            unit: findLabel(unit),
+            number_of_sets: number_of_sets ? String(number_of_sets) : "",
+            weight: weight ? String(weight) : "",
+            unit: unit ? findLabel(unit) : "",
             note,
           }}
           onSubmit={handleSubmit}

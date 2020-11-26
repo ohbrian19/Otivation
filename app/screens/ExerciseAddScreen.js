@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 
@@ -17,7 +17,7 @@ import LoadingScreen from "./LoadingScreen";
 const validationSchema = Yup.object().shape({
   date: Yup.string().label("Date"),
   category: Yup.string().required().label("Category"),
-  exercise_name: Yup.string().label("ExerciseName"),
+  exercise_name: Yup.string().required().label("ExerciseName"),
   number_of_sets: Yup.number().min(0).max(100).label("NumberOfSets"),
   weight: Yup.number().min(0).max(1000).label("Weight"),
   unit: Yup.string().label("Unit"),
@@ -27,43 +27,43 @@ const validationSchema = Yup.object().shape({
 const categories = [
   {
     backgroundColor: "#fc5c65",
-    icon: "floor-lamp",
+    sources: require("../assets/category/Shoulders.png"),
     label: "Shoulders",
     value: 1,
   },
   {
     backgroundColor: "#fd9644",
-    icon: "car",
+    sources: require("../assets/category/Chest.png"),
     label: "Chest",
     value: 2,
   },
   {
     backgroundColor: "#fed330",
-    icon: "camera",
+    sources: require("../assets/category/Back.png"),
     label: "Back",
     value: 3,
   },
   {
     backgroundColor: "#26de81",
-    icon: "cards",
+    sources: require("../assets/category/Abs.png"),
     label: "Abs",
     value: 4,
   },
   {
     backgroundColor: "#2bcbba",
-    icon: "shoe-heel",
+    sources: require("../assets/category/Arms.png"),
     label: "Arms",
     value: 5,
   },
   {
     backgroundColor: "#45aaf2",
-    icon: "basketball",
+    sources: require("../assets/category/Legs.png"),
     label: "Legs",
     value: 6,
   },
   {
     backgroundColor: "#45aaf2",
-    icon: "basketball",
+    icon: "human",
     label: "Others",
     value: 6,
   },
@@ -76,6 +76,7 @@ const unitList = [
 
 function ExerciseAddScreen({ route, navigation }) {
   const { user } = useContext(UserContext);
+  const [visible, setVisible] = useState(false);
 
   const handleSubmit = (item) => {
     const data = {
@@ -90,12 +91,13 @@ function ExerciseAddScreen({ route, navigation }) {
     };
     apiClient
       .post("/exercises", data)
+      .then(() => setVisible(true))
       .then(() => navigation.navigate(routes.EXERCISE_DETAIL));
   };
 
   return (
     <Screen style={styles.container}>
-      <LoadingScreen onFinish progress visible />
+      <LoadingScreen onFinish={() => setVisible(false)} visible={visible} />
       <AppForm
         initialValues={{
           date: route.params,
