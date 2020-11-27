@@ -7,6 +7,8 @@ import AccountItem from "../component/AccountItem";
 import Screen from "../component/Screen";
 import { authService } from "../fbase";
 import UserContext from "../hooks/context";
+import AppText from "../component/form/AppText";
+import Profile from "../component/Profile";
 
 function AccountScreen() {
   const { user } = useContext(UserContext);
@@ -21,12 +23,12 @@ function AccountScreen() {
   return (
     <Screen style={styles.container}>
       <Image style={styles.logo} source={require("../assets/logo.png")} />
+      <Profile />
       <AccountItem
-        title="Brian Oh"
-        subTitle={user}
+        title="Update Profile"
         onPress={manageAccount}
         icon={
-          <MaterialCommunityIcons name="account-circle-outline" size={70} />
+          <MaterialCommunityIcons name="account-circle-outline" size={40} />
         }
       />
       <View style={styles.logout}>
