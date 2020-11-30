@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { View, StyleSheet, Modal } from "react-native";
+import React from "react";
+import { View, StyleSheet } from "react-native";
 
 import colors from "../colors";
 import AppText from "./form/AppText";

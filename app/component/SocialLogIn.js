@@ -34,7 +34,6 @@ function SocialLogIn() {
           googleUser.idToken,
           googleUser.accessToken
         );
-
         authService.signInWithCredential(credential).catch((error) => {
           console.log("google auth error:", error);
         });
@@ -47,14 +46,13 @@ function SocialLogIn() {
   const signInWithGoogleAsync = async () => {
     try {
       const result = await Google.logInAsync({
-        // behavior: "web",
         iosClientId: APP_IOS_CLIENT_ID,
         scopes: ["profile", "email"],
       });
 
       if (result.type === "success") {
         onSignIn(result);
-        apiClient.post("/profiles", {
+        apiClient.put(`/profiles`, {
           name: result.user.name,
           email: result.user.email,
         });

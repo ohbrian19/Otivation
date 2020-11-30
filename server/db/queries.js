@@ -96,7 +96,6 @@ const createProfile = (request, response) => {
 };
 
 const getProfileByEmail = (request, response) => {
-  // get by email
   const { email } = request.params;
   pool.query(
     "SELECT * FROM profiles WHERE email = $1",
