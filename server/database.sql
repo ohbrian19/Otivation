@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS exercises;
+DROP TABLE IF EXISTS profiles;
 
 CREATE TABLE exercises
 (
@@ -13,6 +14,17 @@ CREATE TABLE exercises
   note text
 );
 
+CREATE TABLE profiles
+(
+  ID SERIAL PRIMARY KEY,
+  name text,
+  email text UNIQUE,
+  image text,
+  gender text,
+  height int,
+  weight int
+);
+
 INSERT INTO exercises
   (user_email, date, category, exercise_name, number_of_sets, weight, unit, note)
 VALUES
@@ -25,3 +37,5 @@ INSERT INTO exercises
   (user_email, date, category, exercise_name, number_of_sets, weight, unit, note)
 VALUES
   ('ohbrian@gmail.com', '2020-11-12', 'Arms', 'Bench-Press', 5, 100, 'lb', 'seecond workout at gym');
+
+

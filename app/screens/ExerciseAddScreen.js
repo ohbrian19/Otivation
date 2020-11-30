@@ -80,7 +80,7 @@ function ExerciseAddScreen({ route, navigation }) {
 
   const handleSubmit = (item) => {
     const data = {
-      user_email: user,
+      user_email: user[0],
       date: item.date,
       category: item.category.label,
       exercise_name: item.exercise_name,

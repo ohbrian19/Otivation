@@ -20,7 +20,7 @@ function ExerciseScreen({ navigation }) {
   const getAllExercises = () => {
     setLoading(true);
     apiClient
-      .get(`/exercises/${user}`)
+      .get(`/exercises/${user[0]}`)
       .then((response) => findAllDates(response.data))
       .then(setTimeout(() => setLoading(false), 1500))
       .catch((err) => console.log(err));

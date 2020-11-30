@@ -15,7 +15,7 @@ export default function App() {
     authService.onAuthStateChanged((user) => {
       if (user) {
         setIsLoggedIn(true);
-        setUser(user.email);
+        setUser([user.email, user.displayName]);
       } else {
         setIsLoggedIn(false);
       }

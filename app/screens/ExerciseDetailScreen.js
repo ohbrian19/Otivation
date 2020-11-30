@@ -18,7 +18,7 @@ function ExerciseDetailScreen({ route, navigation }) {
 
   const getData = () => {
     apiClient
-      .get(`/exercises/${route.params}/${user}`)
+      .get(`/exercises/${route.params}/${user[0]}`)
       .then((response) => setExercises(response.data));
   };
 

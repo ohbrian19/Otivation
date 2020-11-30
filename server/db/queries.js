@@ -83,10 +83,51 @@ const deleteExercise = (request, response) => {
   });
 };
 
+const createProfile = (request, response) => {
+  const { email, name } = request.body;
+  pool.query(
+    "INSERT INTO profiles (email, name) VALUES ($1, $2)",
+    [email, name],
+    (error, results) => {
+      if (error) throw error;
+      response.status(201).send();
+    }
+  );
+};
+
+const getProfileByEmail = (request, response) => {
+  // get by email
+  const { email } = request.params;
+  pool.query(
+    "SELECT * FROM profiles WHERE email = $1",
+    [email],
+    (error, results) => {
+      if (error) throw error;
+      response.status(200).json(results.rows);
+    }
+  );
+};
+
+const updateProfile = (request, response) => {
+  const { email } = request.params;
+  const { image, name, gender, height, weight } = request.body;
+  pool.query(
+    "UPDATE profiles SET image = $1, name = $2, gender = $3, height = $4, weight = $5 WHERE email = $6",
+    [image, name, gender, height, weight, email],
+    (error, results) => {
+      if (error) throw error;
+      response.status(200).send();
+    }
+  );
+};
+
 module.exports = {
   getAllExercises,
   getExercisesByDate,
   addExercise,
   updateExercise,
   deleteExercise,
+  createProfile,
+  getProfileByEmail,
+  updateProfile,
 };

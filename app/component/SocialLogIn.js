@@ -3,10 +3,11 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import * as Google from "expo-google-app-auth";
 import { APP_IOS_CLIENT_ID } from "@env";
 import firebase from "firebase";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 import colors from "../colors";
 import { authService } from "../fbase";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import apiClient from "../api/client";
 
 function SocialLogIn() {
   const isUserEqual = (googleUser, firebaseUser) => {
@@ -34,12 +35,9 @@ function SocialLogIn() {
           googleUser.accessToken
         );
 
-        authService
-          .signInWithCredential(credential)
-          // .then(() => console.log("user signed in"))
-          .catch((error) => {
-            console.log("google auth error:", error);
-          });
+        authService.signInWithCredential(credential).catch((error) => {
+          console.log("google auth error:", error);
+        });
       } else {
         console.log("User already signed-in Firebase.");
       }
@@ -56,6 +54,10 @@ function SocialLogIn() {
 
       if (result.type === "success") {
         onSignIn(result);
+        apiClient.post("/profiles", {
+          name: result.user.name,
+          email: result.user.email,
+        });
         return result.accessToken;
       } else {
         return { cancelled: true };

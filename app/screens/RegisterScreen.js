@@ -9,8 +9,7 @@ import SubmitButton from "../component/form/SubmitButton";
 import ErrorMessage from "../component/form/ErrorMessage";
 import colors from "../colors";
 import { authService } from "../fbase";
-
-// import ActivityIndicator from "../components/ActivityIndicator";
+import apiClient from "../api/client";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
@@ -21,9 +20,10 @@ const validationSchema = Yup.object().shape({
 function RegisterScreen() {
   const [error, setError] = useState();
 
-  const onSubmit = async ({ email, password }) => {
+  const onSubmit = async ({ name, email, password }) => {
     try {
       await authService.createUserWithEmailAndPassword(email, password);
+      apiClient.post("/profiles", { name, email });
       setError();
     } catch (error) {
       setError(error.message);
@@ -31,7 +31,6 @@ function RegisterScreen() {
   };
   return (
     <>
-      {/* <ActivityIndicator visible={registerApi.loading || loginApi.loading} /> */}
       <Screen style={styles.container}>
         <Image style={styles.logo} source={require("../assets/logo.png")} />
         <Form
