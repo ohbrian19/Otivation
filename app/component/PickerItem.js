@@ -1,7 +1,6 @@
 import React from "react";
 import { TouchableOpacity, StyleSheet, View } from "react-native";
 
-import colors from "../colors";
 import AppText from "./form/AppText";
 
 function PickerItem({ item, onPress }) {

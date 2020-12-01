@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal, StyleSheet, View } from "react-native";
 import LottieView from "lottie-react-native";
+
 import colors from "../colors";
 
 function LoadingScreen({ onFinish, visible = false }) {

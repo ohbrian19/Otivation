@@ -1,6 +1,7 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { View, StyleSheet, Image, Modal } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useFocusEffect } from "@react-navigation/native";
 
 import colors from "../colors";
 import AccountItem from "../component/AccountItem";
@@ -11,7 +12,6 @@ import Profile from "../component/Profile";
 import ProfileEditScreen from "./ProfileEditScreen";
 import apiClient from "../api/client";
 import ActivityIndicator from "../component/ActivityIndicator";
-import { useFocusEffect } from "@react-navigation/native";
 
 function AccountScreen() {
   const { user } = useContext(UserContext);

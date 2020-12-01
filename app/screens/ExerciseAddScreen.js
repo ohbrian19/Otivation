@@ -119,7 +119,6 @@ function ExerciseAddScreen({ route, navigation }) {
           PickerItemComponent={CategoryPickerItem}
           width="50%"
         />
-        {/* Should CHANGE this later */}
         <AppFormField
           maxLength={50}
           name="exercise_name"
