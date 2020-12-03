@@ -9,7 +9,8 @@ function LoadingScreen({ onFinish, visible = false }) {
     <Modal visible={visible}>
       <View style={styles.container}>
         <LottieView
-          autoPlay={true}
+          autoPlay
+          loop={false}
           onAnimationFinish={onFinish}
           source={require("../assets/animation/finish.json")}
           style={styles.animation}

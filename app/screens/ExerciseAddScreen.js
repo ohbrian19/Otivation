@@ -89,15 +89,17 @@ function ExerciseAddScreen({ route, navigation }) {
       unit: item.unit.label,
       note: item.note,
     };
-    apiClient
-      .post("/exercises", data)
-      .then(() => setVisible(true))
-      .then(() => navigation.navigate(routes.EXERCISE_DETAIL));
+    apiClient.post("/exercises", data).then(() => setVisible(true));
+  };
+
+  const onFinish = () => {
+    setVisible(false);
+    navigation.navigate(routes.EXERCISE_DETAIL);
   };
 
   return (
     <Screen style={styles.container}>
-      <LoadingScreen onFinish={() => setVisible(false)} visible={visible} />
+      <LoadingScreen onFinish={onFinish} visible={visible} />
       <AppForm
         initialValues={{
           date: route.params,

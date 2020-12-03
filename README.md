@@ -21,5 +21,21 @@
 ### Authentication
 
 <img src="./documentation/authentication.gif" align="right" width="200" height="400"/>
-* Register / Log in with email and password
-* Google Authentication
+
+- Register / Login with email and password
+- Firebase Google Authentication
+
+### CRUD exercises
+
+<img src="./documentation/exercises.gif" align="right" width="200" height="400"/>
+
+- Get, add, delete, update exercise to/from PostgreSQL database
+- Fetch data realtime using useFocusEffect
+
+### Personal Profile
+
+<img src="./documentation/profile.gif" align="right" width="200" height="400"/>
+
+-
+
+in progress...
