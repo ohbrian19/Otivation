@@ -21,6 +21,7 @@ CREATE TABLE profiles
   email text UNIQUE,
   image text,
   gender text,
+  dateOfBirth text,
   height int,
   weight int
 );

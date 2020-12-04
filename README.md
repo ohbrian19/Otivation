@@ -18,24 +18,24 @@
 
 ## Features
 
-### Authentication
+<img src="./documentation/authentication.gif" align="right" width="200" height="400"/> <br><br><br><br><br><br>
 
-<img src="./documentation/authentication.gif" align="right" width="200" height="400"/>
+### Authentication <br>
 
 - Register / Login with email and password
 - Firebase Google Authentication
+  <br><br><br><br><br><br><br>
 
-### CRUD exercises
+<img src="./documentation/exercises.gif" align="right" width="200" height="400"/> <br><br><br><br><br><br>
 
-<img src="./documentation/exercises.gif" align="right" width="200" height="400"/>
+### CRUD exercises <br>
 
 - Get, add, delete, update exercise to/from PostgreSQL database
 - Fetch data realtime using useFocusEffect
+  <br><br><br><br><br><br><br>
 
-### Personal Profile
+<img src="./documentation/profile.gif" align="right" width="200" height="400"/> <br><br><br><br><br><br>
 
-<img src="./documentation/profile.gif" align="right" width="200" height="400"/>
+### Personal Profile <br>
 
--
-
-in progress...
+- Upload profile image

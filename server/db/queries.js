@@ -109,10 +109,10 @@ const getProfileByEmail = (request, response) => {
 
 const updateProfile = (request, response) => {
   const { email } = request.params;
-  const { image, name, gender, height, weight } = request.body;
+  const { image, name, gender, height, weight, dateOfBirth } = request.body;
   pool.query(
-    "UPDATE profiles SET image = $1, name = $2, gender = $3, height = $4, weight = $5 WHERE email = $6",
-    [image, name, gender, height, weight, email],
+    "UPDATE profiles SET image = $1, name = $2, gender = $3, height = $4, weight = $5, dateOfBirth = $6 WHERE email = $7",
+    [image, name, gender, height, weight, dateOfBirth, email],
     (error, results) => {
       if (error) throw error;
       response.status(200).send();

@@ -5,43 +5,45 @@ import {
   TouchableWithoutFeedback,
   Modal,
   Button,
-  FlatList,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import defaultStyles from "../styles";
 import AppText from "./form/AppText";
 import Screen from "./Screen";
-import PickerItem from "./PickerItem";
 import colors from "../colors";
+import AppButton from "./AppButton";
 
-function AppPicker({
-  icon,
-  items,
-  numberOfColumns = 1,
+function DatePicker({
   placeholder,
   onSelectItem,
-  PickerItemComponent = PickerItem,
   width = "100%",
   selectedItem,
-  ...props
 }) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [dob, setDob] = useState(new Date());
+
+  const onChange = (event, date) => {
+    setDob(date);
+  };
+
+  const onSelect = () => {
+    onSelectItem(dob);
+    setModalVisible(false);
+  };
+
+  const changeFormat = (dob) => {
+    const date = String(dob).substring(3, 15);
+    return date.substring(1);
+  };
 
   return (
     <>
       <TouchableWithoutFeedback onPress={() => setModalVisible(true)}>
         <View style={[styles.container, { width }]}>
-          {icon && (
-            <MaterialCommunityIcons
-              name={icon}
-              size={20}
-              color={defaultStyles.colors.medium}
-              style={styles.icon}
-            />
-          )}
           {selectedItem ? (
-            <AppText style={styles.text}>{selectedItem.label}</AppText>
+            <AppText style={styles.text}>{changeFormat(selectedItem)}</AppText>
           ) : (
             <AppText style={styles.placeholder}>{placeholder}</AppText>
           )}
@@ -54,21 +56,16 @@ function AppPicker({
       </TouchableWithoutFeedback>
       <Modal visible={modalVisible} animationType="slide">
         <Screen style={styles.modalContainer}>
-          <Button title="Close" onPress={() => setModalVisible(false)} />
-          <FlatList
-            data={items}
-            keyExtractor={(item) => item.value.toString()}
-            numColumns={numberOfColumns}
-            renderItem={({ item }) => (
-              <PickerItemComponent
-                item={item}
-                label={item.label}
-                onPress={() => {
-                  setModalVisible(false);
-                  onSelectItem(item);
-                }}
-              />
-            )}
+          <DateTimePicker value={dob} mode="date" onChange={onChange} />
+          <AppButton
+            title="Select"
+            color={colors.secondary}
+            onPress={onSelect}
+          />
+          <AppButton
+            title="Close"
+            color={colors.secondary}
+            onPress={() => setModalVisible(false)}
           />
         </Screen>
       </Modal>
@@ -94,8 +91,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   modalContainer: {
-    backgroundColor: colors.primary,
+    backgroundColor: colors.secondary,
+    justifyContent: "center",
   },
 });
 
-export default AppPicker;
+export default DatePicker;

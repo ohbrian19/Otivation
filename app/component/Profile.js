@@ -11,20 +11,27 @@ function Profile({ profile }) {
       <ProfileImage image={profile[0].image} />
       <AppText style={styles.name}>{profile[0].name || "name"}</AppText>
       <AppText style={styles.text}>{profile[0].email || "email"}</AppText>
+      {profile[0].dateofbirth ? (
+        <AppText style={styles.text}>
+          {profile[0].dateofbirth.substring(3, 15)}
+        </AppText>
+      ) : (
+        <AppText style={styles.temp}>Date of Birth</AppText>
+      )}
       {profile[0].gender ? (
         <AppText style={styles.text}>{profile[0].gender}</AppText>
       ) : (
-        <AppText style={styles.temp}>gender</AppText>
+        <AppText style={styles.temp}>Gender</AppText>
       )}
       {profile[0].height ? (
         <AppText style={styles.text}>{profile[0].height} cm</AppText>
       ) : (
-        <AppText style={styles.temp}>height in cm</AppText>
+        <AppText style={styles.temp}>Height in cm</AppText>
       )}
       {profile[0].weight ? (
         <AppText style={styles.text}>{profile[0].weight} kg</AppText>
       ) : (
-        <AppText style={styles.temp}>weight in kg</AppText>
+        <AppText style={styles.temp}>Weight in kg</AppText>
       )}
     </View>
   );
@@ -32,7 +39,7 @@ function Profile({ profile }) {
 
 const styles = StyleSheet.create({
   container: {
-    height: "40%",
+    height: "50%",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: colors.white,

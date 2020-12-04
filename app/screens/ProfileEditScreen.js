@@ -17,6 +17,7 @@ const validationSchema = Yup.object().shape({
   height: Yup.number().label("Height"),
   weight: Yup.number().label("Weight"),
   image: Yup.string(),
+  dateOfBirth: Yup.string(),
 });
 
 const genderList = [
@@ -29,6 +30,7 @@ const findLabel = (val) => genderList.find((e) => e.label === val);
 function ProfileEditScreen({ handleUpdate, handleProfile, profile }) {
   const handleSubmit = (item) => {
     const data = {
+      dateOfBirth: String(item.dateOfBirth),
       image: item.image,
       name: item.name,
       gender: item.gender.label,
@@ -51,6 +53,7 @@ function ProfileEditScreen({ handleUpdate, handleProfile, profile }) {
           gender: profile[0].gender ? findLabel(profile[0].gender) : "",
           height: profile[0].height ? String(profile[0].height) : "",
           weight: profile[0].weight ? String(profile[0].weight) : "",
+          dateOfBirth: profile[0].dateofbirth ? profile[0].dateofbirth : "",
         }}
         onSubmit={handleSubmit}
         validationSchema={validationSchema}
@@ -66,6 +69,11 @@ function ProfileEditScreen({ handleUpdate, handleProfile, profile }) {
           items={genderList}
           name="gender"
           placeholder="Gender"
+          width="90%"
+        />
+        <AppFormPicker
+          name="dateOfBirth"
+          placeholder="Date of Birth"
           width="90%"
         />
         <AppFormField
