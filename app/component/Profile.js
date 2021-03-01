@@ -8,7 +8,7 @@ import ProfileImage from "./ProfileImage";
 function Profile({ profile }) {
   return (
     <View style={styles.container}>
-      <ProfileImage image={profile[0].image} />
+      <ProfileImage image={profile[0].image || ""} />
       <AppText style={styles.name}>{profile[0].name || "name"}</AppText>
       <AppText style={styles.text}>{profile[0].email || "email"}</AppText>
       {profile[0].dateofbirth ? (
