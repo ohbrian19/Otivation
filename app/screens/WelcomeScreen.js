@@ -3,7 +3,7 @@ import { View, StyleSheet, Image } from "react-native";
 import colors from "../colors";
 
 import AppButton from "../component/AppButton";
-import SocialLogIn from "../component/SocialLogIn";
+// import SocialLogIn from "../component/SocialLogIn";
 import routes from "../navigation/routes";
 
 function WelcomeScreen({ navigation }) {
@@ -19,7 +19,7 @@ function WelcomeScreen({ navigation }) {
           title="Register"
           onPress={() => navigation.navigate(routes.REGISTER)}
         />
-        <SocialLogIn />
+        {/* <SocialLogIn /> */}
       </View>
     </View>
   );
